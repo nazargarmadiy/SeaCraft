@@ -5,6 +5,9 @@
 
 int main( int argc, char* argv[] )
 {
+    //added to show menu bar
+    QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
+
     QApplication a( argc, argv );
     QTranslator translator;
 
