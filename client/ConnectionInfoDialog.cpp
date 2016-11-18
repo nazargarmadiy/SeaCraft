@@ -51,10 +51,6 @@ ConnectionInfoDialog::ConnectionInfoDialog( QWidget* parent ):
     loginTextBox->installEventFilter( this );
     passTextBox->installEventFilter( this );
 
-    // Hide server address box
-    addrLabel->setVisible( false );
-    addressTextBox->setVisible( false );
-
     connect( applyButton, SIGNAL(clicked()), this, SLOT(accept()) );
     connect( cancelButton, SIGNAL(clicked()), this, SLOT(reject()) );
 }
