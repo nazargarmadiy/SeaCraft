@@ -105,3 +105,8 @@ void Statistics::load( const QString& fname )
         data.insert( login, stats );
     }
 }
+
+PlayerStats Statistics::getStat( QString player )
+{
+    return data[player];
+}

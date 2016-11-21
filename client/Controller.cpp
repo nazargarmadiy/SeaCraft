@@ -311,7 +311,14 @@ bool Controller::parseGameResult( const QString& data )
     if( rx.indexIn(data) != -1 )
     {
         qDebug() << "We win!";
-        emit gameResult( GR_WON );
+        QRegExp rx ("(\\d+)");
+        int wins = 0, loses = 0;
+        if(rx.indexIn(data, data.indexOf("winRate:")) != -1)
+            wins = rx.cap(1).toInt();
+        if(rx.indexIn(data, data.indexOf("loseRate:")) != -1)
+            loses = rx.cap(1).toInt();
+        emit gameResult(GR_WON, wins, loses);
+        qDebug() << data;
         model->setState( ST_PLACING_SHIPS );
         model->clearMyField();
         model->clearEnemyField();
@@ -323,7 +330,14 @@ bool Controller::parseGameResult( const QString& data )
     if( rx2.indexIn(data) != -1 )
     {
         qDebug() << "We lose!";
-        emit gameResult( GR_LOST );
+        QRegExp rx ("(\\d+)");
+        int wins = 0, loses = 0;
+        if(rx.indexIn(data, data.indexOf("winRate:")) != -1)
+            wins = rx.cap(1).toInt();
+        if(rx.indexIn(data, data.indexOf("loseRate:")) != -1)
+            loses = rx.cap(1).toInt();
+        qDebug() << data;
+        emit gameResult(GR_LOST, wins, loses);
         model->setState( ST_PLACING_SHIPS );
         model->clearMyField();
         model->clearEnemyField();

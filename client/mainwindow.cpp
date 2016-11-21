@@ -21,9 +21,9 @@ MainWindow::MainWindow( QWidget* parent ):
     connect( controller, SIGNAL(stateChanged()), this, SLOT(redraw()) );
     connect(
         controller,
-        SIGNAL(gameResult(GameResult)),
+        SIGNAL(gameResult(GameResult, int, int)),
         this,
-        SLOT(showGameResult(GameResult))
+        SLOT(showGameResult(GameResult, int, int))
     );
     connect(
         controller,
@@ -215,7 +215,7 @@ void MainWindow::on_actionClear_triggered()
     this->update();
 }
 
-void MainWindow::showGameResult( GameResult result )
+void MainWindow::showGameResult( GameResult result, int wins, int loses)
 {
     if( result == GR_NONE )
         return;
@@ -224,6 +224,14 @@ void MainWindow::showGameResult( GameResult result )
         ? tr( "You win!" )
         : tr( "You lose!" );
 
+    messageString.append("\n\nTotal wins: ");
+    messageString.append(QString::number(wins));
+    messageString.append("\nTotal loses: ");
+    messageString.append(QString::number(loses));
+    double winPercentage = ((double)wins / (wins + loses)) * 100;
+    messageString.append("\nWin percentage: ");
+    messageString.append(QString::number(winPercentage, 'f', 2));
+    messageString.append("%");
     this->update();
     QMessageBox::information( this, tr("Game result"), messageString );
 }

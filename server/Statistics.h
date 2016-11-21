@@ -25,6 +25,7 @@ public:
     void load( const QString& fname );
     void playerWon( const QString& login );
     void playerLost( const QString& login );
+    PlayerStats getStat( QString player );
 private:
     void checkPlayer( const QString& login );
     // Check for player and add it if not exists

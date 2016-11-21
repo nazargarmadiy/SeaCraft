@@ -56,7 +56,7 @@ public:
 
 signals:
     void stateChanged();
-    void gameResult( GameResult result );
+    void gameResult( GameResult result, int wins, int loses );
     void gameError( GameErrorMessage message );
     void gameOpponent( const QString& name );
 

@@ -492,13 +492,25 @@ void Server::disconnectClientAndRecord(
             ? client.value()
             : client->playingWith.value();
 
-        winner.send( "win:" );
-        looser.send( "lose:" );
-
         recordSessionStatistic(
             winner.login,
             looser.login
         );
+
+        PlayerStats stat = stats_.getStat(winner.login);
+        QString winInfo("win: winRate: ");
+        winInfo.append(QString::number(stat.roundsWon));
+        winInfo.append(" loseRate: ");
+        winInfo.append(QString::number(stat.roundsLost));
+
+        stat = stats_.getStat(looser.login);
+        QString loseInfo("lose: winRate: ");
+        loseInfo.append(QString::number(stat.roundsWon));
+        loseInfo.append(" loseRate: ");
+        loseInfo.append(QString::number(stat.roundsLost));
+
+        winner.send(winInfo);
+        looser.send(loseInfo);
     }
 
     if( client->playingWith != clients_.end() )
