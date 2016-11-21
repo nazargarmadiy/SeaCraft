@@ -37,7 +37,7 @@ protected:
 
 private slots:
     void redraw();
-    void showGameResult( GameResult result );
+    void showGameResult( GameResult result, int wins, int loses );
     void showGameError( GameErrorMessage message );
     void changeGameOpponent( const QString& name );
     void on_actionStart_activated();
